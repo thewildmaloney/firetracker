@@ -3,7 +3,6 @@ import requests
 import pandas as pd
 import pydeck as pdk
 from datetime import datetime
-import os
 
 # Auto-refresh every 30 minutes
 st.markdown("<meta http-equiv='refresh' content='1800'>", unsafe_allow_html=True)
@@ -22,8 +21,8 @@ ADDRESS_LON = -108.4878
 FIRE_CENTER_LAT = 37.65
 FIRE_CENTER_LON = -108.3
 
-# Set Mapbox token
-os.environ["MAPBOX_API_KEY"] = "pk.eyJ1IjoiZGVtb3VzZXIiLCJhIjoiY2w4aXo0eHdiMDk3czN5bnJrb2pkdXEyYSJ9.ZkR0RW1mT04IWnq1TGU4Qw"
+# Get Mapbox token from Streamlit secrets
+MAPBOX_TOKEN = st.secrets["MAPBOX_API_KEY"]
 
 # --- NASA FIRMS Fire Points ---
 @st.cache_data(ttl=1800)
@@ -85,7 +84,8 @@ map_layers.append(pdk.Layer(
 st.pydeck_chart(pdk.Deck(
     map_style='mapbox://styles/mapbox/light-v9',
     initial_view_state=pdk.ViewState(latitude=FIRE_CENTER_LAT, longitude=FIRE_CENTER_LON, zoom=9),
-    layers=map_layers
+    layers=map_layers,
+    mapbox_key=MAPBOX_TOKEN
 ))
 
 # --- Metrics Panel ---
@@ -109,16 +109,21 @@ evac_list = [
     "Forest Service Roads 686, 545",
     "West Fork Dolores River"
 ]
-st.markdown("\\n".join([f"- {area}" for area in evac_list]))
+st.markdown("\n".join([f"- {area}" for area in evac_list]))
 
 # --- Resources ---
 st.subheader("🔗 Official Resources")
-st.markdown(\"\"\"
-- [The Journal Fire Updates](https://www.the-journal.com/articles/evacuations-ordered-as-stoner-mesa-fire-grows-northeast-of-dolores/)
-- [Durango Herald Coverage](https://www.durangoherald.com/articles/evacuations-ordered-as-stoner-mesa-fire-grows-northeast-of-dolores/)
-- [Colorado Wildfire Dashboard](https://www.colorado.gov/pacific/dfpc/fire-information)
-- [NOAA Smoke Forecast](https://www.weather.gov)
-- [InciWeb](https://inciweb.nwcg.gov/)
-\"\"\")
+st.markdown(
+    "- [The Journal Fire Updates](https://www.the-journal.com/articles/evacuations-ordered-as-stoner-mesa-fire-grows-northeast-of-dolores/)  
+"
+    "- [Durango Herald Coverage](https://www.durangoherald.com/articles/evacuations-ordered-as-stoner-mesa-fire-grows-northeast-of-dolores/)  
+"
+    "- [Colorado Wildfire Dashboard](https://www.colorado.gov/pacific/dfpc/fire-information)  
+"
+    "- [NOAA Smoke Forecast](https://www.weather.gov)  
+"
+    "- [InciWeb](https://inciweb.nwcg.gov/)"
+)
+
 st.markdown("---")
 st.caption("Mobile-friendly Streamlit dashboard. Auto-updates every 30 minutes.")
