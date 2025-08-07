@@ -113,17 +113,13 @@ st.markdown("\n".join([f"- {area}" for area in evac_list]))
 
 # --- Resources ---
 st.subheader("🔗 Official Resources")
-st.markdown(
-    "- [The Journal Fire Updates](https://www.the-journal.com/articles/evacuations-ordered-as-stoner-mesa-fire-grows-northeast-of-dolores/)  
-"
-    "- [Durango Herald Coverage](https://www.durangoherald.com/articles/evacuations-ordered-as-stoner-mesa-fire-grows-northeast-of-dolores/)  
-"
-    "- [Colorado Wildfire Dashboard](https://www.colorado.gov/pacific/dfpc/fire-information)  
-"
-    "- [NOAA Smoke Forecast](https://www.weather.gov)  
-"
-    "- [InciWeb](https://inciweb.nwcg.gov/)"
-)
+st.markdown("""
+- [The Journal Fire Updates](https://www.the-journal.com/articles/evacuations-ordered-as-stoner-mesa-fire-grows-northeast-of-dolores/)
+- [Durango Herald Coverage](https://www.durangoherald.com/articles/evacuations-ordered-as-stoner-mesa-fire-grows-northeast-of-dolores/)
+- [Colorado Wildfire Dashboard](https://www.colorado.gov/pacific/dfpc/fire-information)
+- [NOAA Smoke Forecast](https://www.weather.gov)
+- [InciWeb](https://inciweb.nwcg.gov/)
+""")
 
 st.markdown("---")
 st.caption("Mobile-friendly Streamlit dashboard. Auto-updates every 30 minutes.")
