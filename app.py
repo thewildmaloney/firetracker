@@ -21,8 +21,8 @@ ADDRESS_LON = -108.4878
 FIRE_CENTER_LAT = 37.65
 FIRE_CENTER_LON = -108.3
 
-# Get Mapbox token from Streamlit secrets
-MAPBOX_TOKEN = st.secrets["MAPBOX_API_KEY"]
+# Set Mapbox token globally
+pdk.settings.mapbox_api_key = st.secrets["MAPBOX_API_KEY"]
 
 # --- NASA FIRMS Fire Points ---
 @st.cache_data(ttl=1800)
@@ -84,8 +84,7 @@ map_layers.append(pdk.Layer(
 st.pydeck_chart(pdk.Deck(
     map_style='mapbox://styles/mapbox/light-v9',
     initial_view_state=pdk.ViewState(latitude=FIRE_CENTER_LAT, longitude=FIRE_CENTER_LON, zoom=9),
-    layers=map_layers,
-    mapbox_key=MAPBOX_TOKEN
+    layers=map_layers
 ))
 
 # --- Metrics Panel ---
@@ -120,6 +119,5 @@ st.markdown("""
 - [NOAA Smoke Forecast](https://www.weather.gov)
 - [InciWeb](https://inciweb.nwcg.gov/)
 """)
-
 st.markdown("---")
 st.caption("Mobile-friendly Streamlit dashboard. Auto-updates every 30 minutes.")
