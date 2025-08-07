@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 import pandas as pd
 import pydeck as pdk
+pdk.settings.mapbox_api_key = st.secrets["MAPBOX_API_KEY"]
 from datetime import datetime
 
 # Auto-refresh every 30 minutes
